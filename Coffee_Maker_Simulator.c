@@ -34,10 +34,19 @@ int Water = 2500;
 int Milk = 3500;
 int Syrup = 1000;
 
-void coffee_maker_menu()
+
+//function to display menu
+void display_menu(){
+    printf("1. Order from Coffee Maker Menu\n");
+    printf("2. Admin mode \n");
+    printf("1. Exit application \n");
+}
+
+
+void coffee_maker_menu(){
 
 //function to display coffee menu
-{ printf ("Coffee Maker Menu \n");
+printf ("Coffee Maker Menu \n");
 
 
 //use if, else statements to determine whether to show coffee or display unavailability
@@ -58,6 +67,7 @@ if (Beans >= Mocha_Beans && Water >= Mocha_Water && Milk >= Mocha_Water && Syrup
 } else {
     printf("Mocha - Uniavailable due to insufficient ingredients");
 }
+printf("0. Exit\n");
 }
     
 //function for ordering a coffee
@@ -66,7 +76,13 @@ void ordering_coffee()
 {
 int option;
 float cost;
-int required_beans, required_water, required_milk, required_syrup;
+int required_beans = 0;
+int required_water = 0;
+int required_milk = 0;
+int required_syrup = 0;
+float paid = 0;
+
+// setting display functions to 0
 while (1) {
     coffee_maker_menu();
     printf("Choose a coffee option: ");
@@ -77,21 +93,20 @@ while (1) {
         cost = Espresso_Price;
         required_beans = Espresso_Beans;
         required_beans = Espresso_Milk;
-        required_syrup = Espresso_Syrup;
-        required_water = Espresso_Syrup;
+
     } else if (option = 2){
         cost = Cappuccino_Price;
         required_beans = Cappuccino_Beans;
         required_beans = Cappuccino_Milk;
         required_syrup = Cappuccino_Syrup;
-        required_water = Cappuccino_Syrup;
+        
     } else if (option = 3){
         cost = Mocha_Price;
         required_beans = Mocha_Beans;
         required_beans = Mocha_Milk;
         required_syrup = Mocha_Syrup;
         required_water = Mocha_Syrup;
-    }else {
+    } else {
         printf("Error. Please choose a coffee option. \n");
         continue;
     }
@@ -104,29 +119,58 @@ if (option = 1) {
 } else if (option = 3) {
     printf("Mocha");
 }
-printf(" The price will be %.2f AED. Are you this is the coffee you wan? (type 1 for yes and 2 for no): ", cost);
+
+
+if (Beans < required_beans || Water < required_water || Milk < required_milk || Syrup < required_syrup){
+    printf("Sorry, some ingredients are no longer available. Please try again later. \n");
+    continue;
+}
+
+printf("You have chosen to order a %d coffee. The proce will be %.2f Aed. \n", option, cost);
+printf("Are you sure this is what you want to order? (click 1 for yes and 0 for no): ");
 int agreed;
-scanf(%d, &agreed);
-if (agreed = 1) {
-    if (Beans >= required_beans && Water >= required_water && Syrup >= required_syrup && Milk >= required_milk){
-        printf("Please follow the instruction on the machine and pay %.2f AED. \n", cost);
-        float paid = 0;
-        while (paid < cost) {
-            printf("Please enter the required amount to receive the coffee.")
-            if {paid >= cost}
-            else {printf("Invalid ")}
+scanf("%d", &agreed);
 
+if (agreed==0){
+    continue;
+}
+
+while (paid < cost){
+    printf("Insert a 1 or 0.5 Aed coins to pay: ");
+    float coin;
+    scanf("%f", &coin);
+
+    if (coin != 1 && coin != 0.5){
+        printf("Invalid payment, please insert a 1 or 0.5 coin to pay. \n");
+        continue;
         }
-    }
-}
-}
 
+        paid += coin;
 }
 
+Beans -= required_beans;
+Water -= required_water;
+Milk -= required_milk;
+Syrup -= required_milk;
 
-    while (1) { 
+paid -= cost;
 
-char Password; //input for admin password 
-printf("Enter Admin Password: ");
-scanf("%c", &Password);
-    }
+printf("Thank you for your payment of %.2f Aed for your coffee.\n", paid);
+printf("You have %.2f Aed change, please collect it.\n", paid-cost);
+
+if (Beans <= Beans_Threshold){
+    printf("Alert! Low amount of beans! \n");
+}
+
+if (Water <= Water_Threshold){
+    printf("Alert! Low amount of water! \n");
+}
+
+if (Syrup <= Syrup_Threshold){
+    printf("Alert! Low amount of Syrup! \n");
+}
+
+if (Milk <= Milk_Threshold){
+    printf("Alert! Low amount of Milk! \n");
+}
+}
