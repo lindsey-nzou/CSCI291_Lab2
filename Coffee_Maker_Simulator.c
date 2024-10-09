@@ -6,19 +6,19 @@
 #define Espresso_Water 30
 #define Espresso_Milk 0
 #define Espresso_Syrup 0
-#define Espresso_Price 3.5
+float Espresso_Price 3.5;
 
 #define Cappuccino_Beans 8
 #define Cappuccino_Water 30
 #define Cappuccino_Milk 70
 #define Cappuccino_Syrup 0
-#define Cappuccino_Price 4.5
+float Cappuccino_Price 4.5;
 
 #define Mocha_Beans 8
 #define Mocha_Water 39
 #define Mocha_Milk 160
 #define Mocha_Syrup 30
-#define Mocha_Price 5.5
+float Mocha_Price 5.5;
 
 // define password and ingredient threshold
 #define Admin_Password Admin123
@@ -36,12 +36,31 @@ int Syrup = 1000;
 
 
 //function to display menu
-void display_menu(){
-    printf("1. Order from Coffee Maker Menu\n");
-    printf("2. Admin mode \n");
-    printf("1. Exit application \n");
+int main() {
+    int option;
+    while (1) {
+        printf("Coffee Machine Menu:\n");
+        printf("1. Order a coffee\n");
+        printf("2. Admin mode\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &option);
+        switch (option) {
+            case 1:
+                coffee_maker_menu();
+                break;
+            case 2:
+                display_admin_menu();
+                break;
+            case 3:
+                return 0;
+            default:
+                printf("Invalid choice. Please try again.\n");
+                break;
+        }
+    }
+    return 0;
 }
-
 
 void coffee_maker_menu(){
 
@@ -92,31 +111,31 @@ while (1) {
     } else if (option = 1){
         cost = Espresso_Price;
         required_beans = Espresso_Beans;
-        required_beans = Espresso_Milk;
+        required_milk = Espresso_Milk;
 
     } else if (option = 2){
         cost = Cappuccino_Price;
         required_beans = Cappuccino_Beans;
-        required_beans = Cappuccino_Milk;
-        required_syrup = Cappuccino_Syrup;
+        required_milk = Cappuccino_Milk;
+        required_water = Cappuccino_Water;
         
     } else if (option = 3){
         cost = Mocha_Price;
         required_beans = Mocha_Beans;
         required_beans = Mocha_Milk;
         required_syrup = Mocha_Syrup;
-        required_water = Mocha_Syrup;
+        required_water = Mocha_Water;
     } else {
         printf("Error. Please choose a coffee option. \n");
         continue;
     }
 
 printf("Your chosen coffee order ");
-if (option = 1) {
+if (option == 1) {
     printf("Espresso");
-} else if (option = 2){
+} else if (option == 2){
     printf("Cappuccino");
-} else if (option = 3) {
+} else if (option == 3) {
     printf("Mocha");
 }
 
@@ -174,3 +193,109 @@ if (Milk <= Milk_Threshold){
     printf("Alert! Low amount of Milk! \n");
 }
 }
+
+// Function for accessing Admin mode
+
+void administration () {
+    char Passcode[10];
+    printf("Enter password to acess administration mode: \n");
+    scanf("%s", Passcode);
+    if (strcmp(Passcode, Admin_Password) == 0){
+       int option;
+       while (1) {
+        display_admin_menu();
+        printf(" Choose between the options: ");
+        scanf("%d", &option) {
+            switch(option) {
+            case 1:
+                show_ingredients_sales();
+                break;
+            case 2:
+                refill_ingredients ();
+                break;
+            case 3:
+                change_cost_coffee();
+                break;
+            case 4:
+                return 0:
+            default
+                printf("You made an invalid choice, please try again");
+
+            }
+        }
+       } 
+    } else {
+        printf("Wrong Password, please try again.\n");
+    }
+
+}
+
+// function to display admin menu
+
+void display_admin_menu(); {
+
+    printf("Admin Menu:\n");
+    printf("1. Ingredient Quantities and Sales\n");
+    printf("2. Refill Ingredients\n");
+    printf("3. Edit Coffee Prices\n");
+    printf("4. Exit admin mode\n");
+}
+
+//function to display ingredient quantities and sales
+void show_ingredients_sales(); {
+    printf("Quantity of Ingredients:\n");
+    printf("Beans: %.2f\n", Beans);
+    printf("Water: %.2f\n", Water);
+    printf("Milk: %.2f\n", Milk);
+    printf("Syrup: %.2f\n", Syrup);
+    printf("Sales: %.2f Aed\n", paid);
+}
+
+//function to refil coffee machines
+
+void refill_ingredients() {
+    Beans = 1000;
+    Water = 2000;
+    Milk = 3000;
+    Syrup = 1000;
+    printf("Ingredients replenished.\n");
+}
+
+ // Function for changing coffee prices
+  
+void change_cost_coffee() {
+    int option;
+    float new_cost;
+    printf("Select which Coffee type you want to change the price of:\n");
+    printf("1. Espresso\n");
+    printf("2. Cappuccino\n");
+    printf("3. Mocha\n");
+    scanf("%d", &option);
+    switch (option) {
+        case 1:
+            printf(" Enter the new costs of an espresso");
+            scanf("%f", &new_cost);
+            Espresso_Price = new_cost;
+            printf(" The price of an Espresso has been changed to %.2f Aed\n", Espresso_Price);
+            break;
+        case 2:
+            printf(" Enter the new cost of a Cappucino");
+            scanf("%f", &new_cost);
+            Cappuccino_Price = new_cost;
+            printf(" The price of a Cappuccino has been changed to %.2f Aed\n",Cappuccino_Price);
+            break;
+        case 3:
+            printf(" Enter the new cost of a Mocha");
+            scanf("%f", &new_cost);
+            Mocha_Price = new_cost;
+            printf(" The price of a Mocha has been changed to %.2f Aed\n", Mocha_Syrup);
+            break;
+        default:
+            printf("Your choice was invalid, please try again.\n");
+            break;
+    }
+
+}  
+
+
+
