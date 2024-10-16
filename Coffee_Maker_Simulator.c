@@ -6,19 +6,19 @@
 #define Espresso_Water 30
 #define Espresso_Milk 0
 #define Espresso_Syrup 0
-float Espresso_Price 3.5;
+float Espresso_Price = 3.5 ;
 
 #define Cappuccino_Beans 8
 #define Cappuccino_Water 30
 #define Cappuccino_Milk 70
 #define Cappuccino_Syrup 0
-float Cappuccino_Price 4.5;
+float Cappuccino_Price = 4.5;
 
 #define Mocha_Beans 8
 #define Mocha_Water 39
 #define Mocha_Milk 160
 #define Mocha_Syrup 30
-float Mocha_Price 5.5;
+float Mocha_Price = 5.5;
 
 // define password and ingredient threshold
 #define Admin_Password Admin123
@@ -34,6 +34,12 @@ int Water = 2500;
 int Milk = 3500;
 int Syrup = 1000;
 
+// Display function prototypes
+int display_admin_menu();
+int coffee_maker_menu();
+void show_ingredients_sales();
+void refill_ingredients ();
+void change_cost_coffee();  
 
 //function to display menu
 int main() {
@@ -45,6 +51,7 @@ int main() {
         printf("3. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &option);
+        
         switch (option) {
             case 1:
                 coffee_maker_menu();
@@ -62,7 +69,7 @@ int main() {
     return 0;
 }
 
-void coffee_maker_menu(){
+int coffee_maker_menu () {
 
 //function to display coffee menu
 printf ("Coffee Maker Menu \n");
@@ -70,21 +77,21 @@ printf ("Coffee Maker Menu \n");
 
 //use if, else statements to determine whether to show coffee or display unavailability
 if (Beans >= Espresso_Beans && Water >= Espresso_Water ) {  //conditional to ensure ingredients amount
-    printf("Espresso - %.2f AED\n", Espresso_Price); //display if meets criteria
+    printf("1. Espresso - %.2f AED\n", Espresso_Price); //display if meets criteria
 } else {
-    printf("Espresso - Unavailable due to insufficient ingredients \n"); //display if criteria isnt met
+    printf("1. Espresso - Unavailable due to insufficient ingredients \n"); //display if criteria isnt met
 }
     
 if (Water >= Cappuccino_Water && Beans >= Cappuccino_Beans && Milk >= Cappuccino_Milk) {
-    printf("Cappucino - %.2f AED\n", Cappuccino_Price );
+    printf("2. Cappucino - %.2f AED\n", Cappuccino_Price );
 } else {
-    printf("Cappuccino - Unavailable due to insufficient ingredients");
+    printf("2. Cappuccino - Unavailable due to insufficient ingredients");
 }
 
 if (Beans >= Mocha_Beans && Water >= Mocha_Water && Milk >= Mocha_Water && Syrup >= Mocha_Syrup){
-    printf("Mocha - %.2f AED\n", Mocha_Price);
+    printf("3. Mocha - %.2f AED\n", Mocha_Price);
 } else {
-    printf("Mocha - Uniavailable due to insufficient ingredients");
+    printf("3. Mocha - Uniavailable due to insufficient ingredients");
 }
 printf("0. Exit\n");
 }
@@ -145,14 +152,14 @@ if (Beans < required_beans || Water < required_water || Milk < required_milk || 
     continue;
 }
 
-printf("You have chosen to order a %d coffee. The proce will be %.2f Aed. \n", option, cost);
+printf("You have chosen to order coffee option #%d. The price will be %.2f Aed. \n", option, cost);
 printf("Are you sure this is what you want to order? (click 1 for yes and 0 for no): ");
 int agreed;
 scanf("%d", &agreed);
 
-if (agreed==0){
+if (agreed==1){
     continue;
-}
+} 
 
 while (paid < cost){
     printf("Insert a 1 or 0.5 Aed coins to pay: ");
@@ -196,7 +203,21 @@ if (Milk <= Milk_Threshold){
 
 // Function for accessing Admin mode
 
-void administration () {
+
+
+// function to display admin menu
+
+int display_admin_menu() {
+
+    printf("Admin Menu:\n");
+    printf("1. Ingredient Quantities and Sales\n");
+    printf("2. Refill Ingredients\n");
+    printf("3. Edit Coffee Prices\n");
+    printf("4. Exit admin mode\n");
+}
+
+void display_admin_menu ()
+{
     char Passcode[10];
     printf("Enter password to acess administration mode: \n");
     scanf("%s", Passcode);
@@ -205,7 +226,7 @@ void administration () {
        while (1) {
         display_admin_menu();
         printf(" Choose between the options: ");
-        scanf("%d", &option) {
+        scanf("%d", &option); {
             switch(option) {
             case 1:
                 show_ingredients_sales();
@@ -230,16 +251,7 @@ void administration () {
 
 }
 
-// function to display admin menu
 
-void display_admin_menu(); {
-
-    printf("Admin Menu:\n");
-    printf("1. Ingredient Quantities and Sales\n");
-    printf("2. Refill Ingredients\n");
-    printf("3. Edit Coffee Prices\n");
-    printf("4. Exit admin mode\n");
-}
 
 //function to display ingredient quantities and sales
 void show_ingredients_sales(); {
